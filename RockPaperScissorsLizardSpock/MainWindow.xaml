@@ -5,8 +5,86 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RockPaperScissorsLizardSpock"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Fun Game" Height="450" Width="800">
+    <Grid Background="AliceBlue">     
+        <!--divide to 8*2-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Old School Childhood Game" 
+               FontSize="25" HorizontalContentAlignment="Center"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="You pick" FontSize="25" HorizontalContentAlignment="Center" />
+        <Label Grid.Row="1" Grid.Column="1" Content="Computer picks" FontSize="25" HorizontalContentAlignment="Center" />
+        <Image Grid.Row="2" Grid.Column="0" Source="{Binding UserPickImage, UpdateSourceTrigger=PropertyChanged}" />
+        <!--One image shows user picks, the other shows computer picks-->
+        <Image Grid.Row="2" Grid.Column="1" Source="{Binding AIPickImage,UpdateSourceTrigger=PropertyChanged}"
+               Visibility="{Binding ShowOrHide, UpdateSourceTrigger=PropertyChanged}" />
+        <!--show result for current run-->
+        <Label Grid.Row="3" Grid.ColumnSpan="2" Content="{Binding Result, UpdateSourceTrigger=PropertyChanged}" 
+               FontSize="25" HorizontalContentAlignment="Center" />
+        <Viewbox Grid.Row="4" Grid.ColumnSpan="2" >
+            <!--Assign icons to differnt buttons-->
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button Name="Rock" Margin="5, 5, 400, 5" Width="450" Height="450" Click="Rock_Click" Cursor="Hand"
+                        IsEnabled="{Binding EnableButton, UpdateSourceTrigger=PropertyChanged}" >
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="image/rock.png" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Name="Paper" Margin="5, 5, 400, 5"  Width="450" Height="450" Click="Paper_Click" Cursor="Hand"
+                        IsEnabled="{Binding EnableButton,UpdateSourceTrigger=PropertyChanged}" >
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="image/paper.png" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Name="Scissors" Margin="5, 5, 400, 5"  Width="450" Height="450" Click="Scissors_Click" Cursor="Hand"
+                        IsEnabled="{Binding EnableButton, UpdateSourceTrigger=PropertyChanged}" >
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="image/scissors.png" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Name="Spock" Margin="5, 5, 400, 5"  Width="450" Height="450" Click="Spock_Click" Cursor="Hand" 
+                        IsEnabled="{Binding EnableButton, UpdateSourceTrigger=PropertyChanged}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="image/spock.png" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Name="Lizard" Margin="5, 5, 400, 5"  Width="450" Height="450" Click="Lizard_Click" Cursor="Hand" 
+                        IsEnabled="{Binding EnableButton, UpdateSourceTrigger=PropertyChanged}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="image/lizard.png" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Viewbox>
+        <!--show game result sta-->
+        <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding ResultStats, UpdateSourceTrigger=PropertyChanged}"
+               FontSize="25" HorizontalContentAlignment="Center" />
+        <Button Grid.Row="6" Grid.Column="0" Name="Start" Content="Start" Click="Start_Click" Margin="50,5,50,5" Cursor="Hand"
+                IsEnabled="{Binding Start, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Row="6" Grid.Column="1" Content="Reset" Name="Reset" Click="Reset_Click" Margin="50,5,50,5" Cursor="Hand" />
+        <!--game history log-->
+        <ListBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding GameRecord,UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </Window>
